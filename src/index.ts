@@ -122,11 +122,17 @@ class SynchronousWorker extends EventEmitter {
   }
 
   async stop(): Promise<void> {
-    return this[kStoppedPromise] ??= new Promise(resolve => {
+    return this[kStoppedPromise] ??= new Promise((resolve, reject) => {
       this[kHandle].signalStop();
-      fs.readFile(__filename, () => {
-        this[kHandle].stop();
-        resolve();
+      setImmediate(() => {
+        fs.readFile(__filename, () => {
+          try {
+            this[kHandle].stop();
+            resolve();
+          } catch (err) {
+            reject(err);
+          }
+        });
       });
     });
   }
