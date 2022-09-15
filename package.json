@@ -1,6 +1,6 @@
 {
   "name": "@matteo.collina/isolates",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Running V8 isolates synchronously, for Node.js (a fork of synchronous-worker)",
   "main": "lib/index.js",
   "exports": {
