@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { join } from 'path';
 import SynchronousWorker from '../';
 
 describe('SynchronousWorker allows running Node.js code', () => {
@@ -207,5 +208,21 @@ describe('SynchronousWorker allows running Node.js code', () => {
       });
     });
     await w.stop();
+  });
+
+  it('support import', async() => {
+    const w = new SynchronousWorker({ sharedEventLoop: true, sharedMicrotaskQueue: true });
+    const req = w.createRequire(__filename);
+    const httpServer = req('http').createServer((_, res) => {
+      res.writeHead(200);
+      res.end('Ok\n');
+    });
+    await new Promise((resolve) => {
+      httpServer.listen(0, resolve);
+    });
+    const fetch = req(join(__dirname, '..', 'fixtures', 'jump.js'));
+    const res = await fetch(httpServer.address().port);
+    assert.strictEqual(res, 'Ok\n');
+    httpServer.close();
   });
 });

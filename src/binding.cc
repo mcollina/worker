@@ -258,8 +258,7 @@ void Worker::Start(bool own_loop, bool own_microtaskqueue) {
       {},
       {},
       static_cast<EnvironmentFlags::Flags>(
-          EnvironmentFlags::kTrackUnmanagedFds |
-          EnvironmentFlags::kNoRegisterESMLoader),
+          EnvironmentFlags::kTrackUnmanagedFds),
       thread_id,
       std::move(inspector_parent_handle));
   assert(env_ != nullptr);
