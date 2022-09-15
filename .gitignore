@@ -24,3 +24,4 @@ tmp/
 package-lock.json
 build/
 crash.log
+.ccls-cache
