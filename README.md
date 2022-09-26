@@ -1,8 +1,15 @@
 # synchronous-worker – Run Node.js APIs synchronously
 
+## install
+
+```sh
+npm i @matteo.collina/worker
+```
+
 ## Usage Example
 
 ```js
+const SynchronousWorker = require('@matteo.collina/worker')
 const w = new SynchronousWorker();
 const fetch = w.createRequire(__filename)('node-fetch');
 const response = w.runLoopUntilPromiseResolved(fetch('http://example.org'));
