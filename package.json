@@ -1,7 +1,7 @@
 {
-  "name": "@matteo.collina/isolates",
+  "name": "@matteo.collina/worker",
   "version": "2.1.0",
-  "description": "Running V8 isolates synchronously, for Node.js (a fork of synchronous-worker)",
+  "description": "Running Node.js within Node.js (a fork of synchronous-worker)",
   "main": "lib/index.js",
   "exports": {
     "require": "./lib/index.js",
@@ -26,13 +26,13 @@
     "synchronous"
   ],
   "author": "Anna Henningsen <anna@addaleax.net>",
-  "homepage": "https://github.com/mcollina/isolates",
+  "homepage": "https://github.com/mcollina/worker",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mcollina/isolates.git"
+    "url": "https://github.com/mcollina/worker.git"
   },
   "bugs": {
-    "url": "https://github.com/mcollina/isolates/issues"
+    "url": "https://github.com/mcollina/worker/issues"
   },
   "contributors": [{
     "name": "Matteo Collina",
