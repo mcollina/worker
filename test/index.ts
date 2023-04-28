@@ -225,4 +225,23 @@ describe('SynchronousWorker allows running Node.js code', () => {
     assert.strictEqual(res, 'Ok\n');
     httpServer.close();
   });
+
+  it('shared event loop and microtask with tasks', async () => {
+    const w = new SynchronousWorker({ sharedEventLoop: true, sharedMicrotaskQueue: true });
+    w.runInWorkerScope(() => {
+      const req = w.createRequire(__filename);
+      const fetch = req('node-fetch');
+      const httpServer = req('http').createServer((_, res) => {
+        res.writeHead(200);
+        res.end('Ok\n');
+      });
+      httpServer.listen(0, req('vm').runInThisContext(`({fetch, httpServer }) => (async () => {
+        const res = await fetch('http://localhost:' + httpServer.address().port + '/');
+        globalThis.responseText = await res.text();
+        httpServer.close()
+      })`)({ fetch, httpServer }));
+    });
+
+    await w.stop();
+  });
 });
