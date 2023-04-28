@@ -226,7 +226,7 @@ describe('SynchronousWorker allows running Node.js code', () => {
     httpServer.close();
   });
 
-  it('shared event loop and microtask with tasks', async => {
+  it('shared event loop and microtask with tasks', async() => {
     const w = new SynchronousWorker({ sharedEventLoop: true, sharedMicrotaskQueue: true });
     w.runInWorkerScope(() => {
       const req = w.createRequire(__filename);
